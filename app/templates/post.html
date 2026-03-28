@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <article class="post col-lg-8 mx-auto">
+        <h1 class="my-4">{{ post.title }}</h1>
+        <div class="text-muted">{{ post.author }}, {{ post.date.strftime('%d.%m.%Y') }}</div>
+
+        <img class="post-image img-fluid my-3 border d-block mx-auto" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="{{ post.title }}">
+
+        <p class="mt-4">{{ post.text }}</p>
+
+        <div class="card my-5">
+            <div class="card-header">Оставьте комментарий</div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+
+        <section class="my-5">
+            {% for comment in post.comments %}
+                <div class="d-flex mb-4">
+                    <img src="{{ url_for('static', filename='images/avatar.jpg') }}" class="me-3 rounded-circle" width="56" height="56" alt="avatar">
+                    <div>
+                        <div class="fw-bold mb-1">{{ comment.author }}</div>
+                        <div class="mb-2">{{ comment.text }}</div>
+                        {% if comment.replies %}
+                            {% for reply in comment.replies %}
+                                <div class="d-flex mt-3 ms-5">
+                                    <img src="{{ url_for('static', filename='images/avatar.jpg') }}" class="me-3 rounded-circle" width="40" height="40" alt="avatar">
+                                    <div>
+                                        <div class="fw-bold mb-1">{{ reply.author }}</div>
+                                        <div class="mb-0">{{ reply.text }}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </article>
+</div>
+{% endblock %}

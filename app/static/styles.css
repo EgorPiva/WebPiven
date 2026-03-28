@@ -1,0 +1,19 @@
+body {
+    font-size: 1.25rem;
+}
+
+.avatar {
+    max-width: 100%;
+}
+
+.post-image {
+    max-width: 70%;
+}
+
+.post {
+    font-size: 1rem;
+}
+
+.post .text-muted {
+    font-size: 0.95rem;
+}
