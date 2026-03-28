@@ -10,6 +10,10 @@ BASE_URL = os.getenv("PAGES_BASE", "/WebPiven").rstrip("/")
 
 def write_html(path: Path, html: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    if BASE_URL:
+        prefix = BASE_URL if BASE_URL.startswith("/") else f"/{BASE_URL}"
+        html = html.replace('href="/', f'href="{prefix}/')
+        html = html.replace('src="/', f'src="{prefix}/')
     path.write_text(html, encoding="utf-8")
 
 
